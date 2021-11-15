@@ -14,7 +14,7 @@ const ManageProduct = () => {
     const handleDelete = (id) => {
       const proceed = window.confirm("Are you sure, you want to delete a orders Car?");
       if (proceed) {
-        const url = `https://protected-shelf-60109.herokuapp.com/${id}`;
+        const url = `https://protected-shelf-60109.herokuapp.com/cars/${id}`;
         fetch(url, {
           method: "DELETE",
         })
