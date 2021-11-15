@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 const AddCar = () => {
     const { register, handleSubmit,reset } = useForm();
     const onSubmit = data => {
-       axios.post('http://localhost:4000/cars',data)
+       axios.post('https://protected-shelf-60109.herokuapp.com/cars',data)
        .then(res => {
         if(res.data.insertedId){
             alert('Added Your car')

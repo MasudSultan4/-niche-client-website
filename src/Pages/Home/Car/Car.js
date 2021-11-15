@@ -21,9 +21,12 @@ const Car = ({ car }) => {
           <h5>Tour-Cost:${price}Taka</h5>
           <hr />
 
-          <button className="btn btn-success">
-            <Link className="text-white line" to={`/carDetails/${car._id}`}>Order Now</Link>
-          </button>
+        
+
+          <Link className="text-white line" to={`/carDetails/${car._id}`}>
+            
+            <button className="btn btn-success">Order Now</button>
+          </Link>
         </div>
       </div>
     </div>

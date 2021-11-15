@@ -6,17 +6,21 @@ import useAuth from './../../../Hooks/useAuth';
 
 const CarDetails = () => {
   const { productId } = useParams();
-  const [cars, setCars] = useState({});
-  const history = useHistory();
-  const { user } = useAuth();
 
+  const history = useHistory();
+  
+  const { user } = useAuth();
+  const [cars, setCars] = useState({});
+  const { register, handleSubmit, reset } = useForm();
   useEffect(() => {
-    fetch(`http://localhost:4000/cars/${productId}`)
-      .then((res) => res.json())
-      .then((data) => setCars(data));
+    fetch(`https://protected-shelf-60109.herokuapp.com/cars/${productId}`)
+          .then((res) => res.json())
+          .then((data) => setCars(data));
   }, []);
 
-  const { register, handleSubmit, reset } = useForm();
+
+
+ 
 
   // ref Car
   const nameRef = useRef();
@@ -27,17 +31,16 @@ const CarDetails = () => {
     const name = nameRef.current.value;
     const email = emailRef.current.value;
     const price = priceRef.current.value;
-    // const tour_name = tour_nameRef.current.value
 
     const dataRef = { ...data, name, email, price };
 
     console.log('data here', dataRef);
     dataRef.status = 'pending';
 
-    axios.post('http://localhost:4000/orders', dataRef).then((res) => {
+    axios.post('https://protected-shelf-60109.herokuapp.com/orders', dataRef).then((res) => {
       if (res.data.insertedId) {
-        alert('Added Your Booking Car');
-        history.push('/myBooking');
+        alert('Added Your Order Car');
+        history.push('/explore');
         reset();
       }
     });
@@ -47,7 +50,7 @@ const CarDetails = () => {
     <div className="container">
       <div className="row">
         <div className="col-md-5 col-sm-6 col-12">
-          <h1>car id : {cars._id}</h1>
+         
           <div className="card mb-3 p-2">
             <img
               style={{ height: '180px' }}

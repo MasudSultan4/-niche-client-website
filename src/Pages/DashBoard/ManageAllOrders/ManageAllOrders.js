@@ -1,18 +1,17 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Button, Table } from 'react-bootstrap';
 import useAuth from './../../../Hooks/useAuth';
 
-const MyOrders = () => {const [myOrders, setMyOrders] = useState([]);
-
+const ManageAllOrders = () => {
+    const [orders, setOrders] = useState([]);
     const { control, setControl, user } = useAuth();
     useEffect(() => {
-      fetch(`https://protected-shelf-60109.herokuapp.com/orders/${user.email}`)
+      fetch("https://protected-shelf-60109.herokuapp.com/orders")
         .then((res) => res.json())
-        .then((data) => {
-          setMyOrders(data);
-        });
-    }, [control, user.email]);
-    //handle delete
+        .then((data) => setOrders(data));
+    }, [control]);
+    //*handle delete
     const handleDelete = (id) => {
       const proceed = window.confirm("Are you sure, you want to delete?");
       if (proceed) {
@@ -23,16 +22,30 @@ const MyOrders = () => {const [myOrders, setMyOrders] = useState([]);
           .then((res) => res.json())
           .then((data) => {
             if (data.deletedCount > 0) {
-              alert("data Deleted!!");
+              alert("Delete successfully!");
               setControl(!control);
             }
           });
       }
     };
+  
+    //*handle update
+    const handleUpdate = (id) => {
+      let data = orders.find((booking) => booking._id == id);
+      data.status = "APPROVED";
+      axios
+        .put(`https://protected-shelf-60109.herokuapp.com/orders/${id}`, data)
+        .then((res) => {
+          if (res) {
+            alert("Approved");
+            setControl(!control);
+          }
+        });
+    };
     return (
       <div>
         <h1 className="text-center custom-margin">
-          My Orders : {myOrders?.length}{" "}
+          ALL Orders : {orders?.length}{" "}
         </h1>
   
         <Table responsive striped bordered hover className="container">
@@ -40,22 +53,27 @@ const MyOrders = () => {const [myOrders, setMyOrders] = useState([]);
             <tr>
               <th>#</th>
               <th>Name</th>
-              <th className="text-center">Product</th>
+              <th>Email</th>
+              <th>Product</th>
               <th>Price</th>
               <th>Status</th>
               <th>Action</th>
             </tr>
           </thead>
-          {myOrders.map((order, index) => (
+          {orders.map((order, index) => (
             <tbody key={order?._id}>
               <tr>
                 <td>{index}</td>
                 <td>{user?.displayName}</td>
+                <td>{order?.email}</td>
                 <td>{order?.name}</td>
                 <td>{order?.price}</td>
   
                 <td>
-                  <button className="btn btn-primary">
+                  <button
+                    onClick={() => handleUpdate(order._id)}
+                    className="btn btn-primary"
+                  >
                     {order?.status === "pending" ? "Pending" : "Approved"}
                   </button>
                 </td>
@@ -63,7 +81,7 @@ const MyOrders = () => {const [myOrders, setMyOrders] = useState([]);
                   className="delete-btn text-center"
                   onClick={() => handleDelete(order?._id)}
                 >
-                 <Button variant="outline-danger">Delete</Button>
+                  <Button variant="outline-danger">Delete</Button>
                 </td>
               </tr>
             </tbody>
@@ -73,4 +91,4 @@ const MyOrders = () => {const [myOrders, setMyOrders] = useState([]);
     );
 };
 
-export default MyOrders;
+export default ManageAllOrders;

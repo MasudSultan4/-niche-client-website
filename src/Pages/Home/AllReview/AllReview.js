@@ -1,28 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import { Spinner } from 'react-bootstrap';
-import Car from '../Car/Car';
+import Reviews from '../Reviews/Reviews';
 
-const Allcars = () => {
-  const [cars, setCars] = useState([]);
+const AllReview = () => {
+  const [reviews, setReviews] = useState([]);
   const [isLoader, setIsLoader] = useState(false);
   useEffect(() => {
-    fetch('https://protected-shelf-60109.herokuapp.com/cars')
+    fetch('https://protected-shelf-60109.herokuapp.com/reviews')
       .then((res) => res.json())
       .then((data) => {
-        setCars(data);
+        setReviews(data);
         setIsLoader(true);
       });
   }, []);
-
   return (
-    <div id="cars">
+    <div>
       <div className="container text-center">
         <h2 className="fw-bold">
-          Our <span className="text-warning">Car Show-Room</span>
+          Our Car Show-Room<span className="text-warning">Review</span>
         </h2>
         <div className="row">
           {isLoader ? (
-            cars.map((car) => <Car key={car._id} car={car}></Car>)
+            reviews.map((review) => (
+              <Reviews key={review._id} review={review}></Reviews>
+            ))
           ) : (
             <Spinner
               className="mx-auto"
@@ -36,4 +37,4 @@ const Allcars = () => {
   );
 };
 
-export default Allcars;
+export default AllReview;

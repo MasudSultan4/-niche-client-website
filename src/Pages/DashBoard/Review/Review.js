@@ -15,7 +15,7 @@ const Review = () => {
     const email = emailRef.current.value;
 
     const dataRef = { ...data, name, email };
-    axios.post('http://localhost:4000/reviews', dataRef).then((res) => {
+    axios.post('https://protected-shelf-60109.herokuapp.com/reviews', dataRef).then((res) => {
       if (res.data.insertedId) {
         alert('Thanks,Added Your Review');
         reset();
