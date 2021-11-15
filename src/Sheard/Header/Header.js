@@ -34,9 +34,11 @@ const Header = () => {
             <Link to="/contact" className="nav text-white me-3 line">
               Contact us
             </Link>
-            {user.email && <Link to="/dashboard" className="nav text-white me-3 line">
-              DashBoard
-            </Link>}
+            {user.email && (
+              <Link to="/dashboard" className="nav text-white me-3 line">
+                DashBoard
+              </Link>
+            )}
 
             {user?.email ? (
               <Button onClick={logOut} variant="outline-info">
@@ -49,6 +51,12 @@ const Header = () => {
                 </Link>
               </Button>
             )}
+
+            <Navbar.Collapse className="justify-content-end">
+              <Navbar.Text>
+                <p className="text-white">{user?.displayName}</p>
+              </Navbar.Text>
+            </Navbar.Collapse>
           </Navbar.Collapse>
         </Container>
       </Navbar>

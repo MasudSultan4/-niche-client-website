@@ -1,10 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Car = ({ car }) => {
   const { img, name, description, price } = car;
 
   return (
-    <div className="col-md-4 col-12">
+    <div className="col-md-4 col-sm-6 col-12">
       <div className="card mb-3 p-2">
         <img
           style={{ height: '180px' }}
@@ -20,7 +21,9 @@ const Car = ({ car }) => {
           <h5>Tour-Cost:${price}Taka</h5>
           <hr />
 
-          <button className="btn btn-success">Add To Cart</button>
+          <button className="btn btn-success">
+            <Link className="text-white line" to={`/carDetails/${car._id}`}>Order Now</Link>
+          </button>
         </div>
       </div>
     </div>

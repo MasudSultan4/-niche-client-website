@@ -9,7 +9,7 @@ const AddCar = () => {
        axios.post('http://localhost:4000/cars',data)
        .then(res => {
         if(res.data.insertedId){
-            alert('Added Your Tour Area')
+            alert('Added Your car')
             reset()
         }
        })

@@ -10,13 +10,14 @@ const Allcars = () => {
             setCars(data)
         })
     },[])
+    const featuredCar = cars.slice(0,6)
     return (
        <div id="cars">
             <div className="container text-center">
              <h2 className="fw-bold">Our <span className="text-warning">Car Show-Room</span></h2>
           <div className="row">
           {
-              cars.map(car => <Car key={car._id} car={car}></Car>) 
+              featuredCar.map(car => <Car key={car._id} car={car}></Car>) 
               /* <Spinner className="mx-auto" animation="border" variant="danger"></Spinner> */
           }
               

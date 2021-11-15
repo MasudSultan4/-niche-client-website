@@ -5,7 +5,14 @@ import './App.css';
 import AuthProvider from './Context/AuthProvider/AuthProvider';
 import AddCar from './Pages/DashBoard/AddCar/AddCar';
 import DashBoard from './Pages/DashBoard/DashBoard/DashBoard';
+import MakeAdmin from './Pages/DashBoard/MakeAdmin/MakeAdmin';
+import ManageAllProduct from './Pages/DashBoard/ManageAllProduct/ManageAllProduct';
+import ManageProduct from './Pages/DashBoard/ManageProduct/ManageProduct';
+import MyOrders from './Pages/DashBoard/MyOrders/MyOrders';
+import Payment from './Pages/DashBoard/Payment/Payment';
+import Review from './Pages/DashBoard/Review/Review';
 import Allcars from './Pages/Home/Allcars/Allcars';
+import CarDetails from './Pages/Home/CarDetails/CarDetails';
 import Home from './Pages/Home/Home/Home';
 import Login from './Pages/LogIn/Login/Login';
 import PrivateRoute from './Pages/LogIn/PrivateRoute/PrivateRoute';
@@ -28,16 +35,41 @@ function App() {
           <Route exact path="/explore">
             <Allcars></Allcars>
           </Route>
-          <PrivateRoute exact path="/dashboard">
+          <PrivateRoute exact path="/carDetails/:productId">
+            <CarDetails></CarDetails>
+          </PrivateRoute>
+          
+          <PrivateRoute path="/dashboard">
             <DashBoard></DashBoard>
           </PrivateRoute>
-          <Route exact path="/addcar">
+          <Route path="/review">
+            <Review></Review>
+          </Route>
+          <Route path="/admin">
+            <MakeAdmin></MakeAdmin>
+          </Route>
+          <Route path="/payment">
+            <Payment></Payment>
+          </Route>
+          <Route path="/myOrder">
+            <MyOrders></MyOrders>
+          </Route>
+          <Route path="/manageProduct">
+            <ManageProduct></ManageProduct>
+          </Route>
+          <Route path="/manageAllProduct">
+            <ManageAllProduct></ManageAllProduct>
+          </Route>
+          <Route path="/payment">
+            <Payment></Payment>
+          </Route>
+          <Route exact path="/addCar">
             <AddCar></AddCar>
           </Route>
           <Route path="/login">
             <Login></Login>
           </Route>
-          <Route path="/register">
+          <Route exact path="/register">
             <Register></Register>
           </Route>
         </Switch>
